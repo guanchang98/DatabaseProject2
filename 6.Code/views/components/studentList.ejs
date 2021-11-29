@@ -1,10 +1,10 @@
 <h2>Students:</h2>
 <ul>
   <% for (let a of students) { %>
-  <li>
-    <a href="<%= '/students/' + a.studentID + '/edit'  %>"><%= a.lastName + ', ' + a.firstName + " (" + a.email + ")" %></a>
-    <a href="<%= '/courses/' + course.courseID + '/removeStudent/' + a.studentID   %>">❌</a>
-  </li>
+    <li>
+      <a href="<%= '/students/' + a.studentID + '/edit'  %>"><%= a.lastName + ', ' + a.firstName + " (" + a.email + ")" %></a>
+      <a href="<%= '/courses/' + course.courseID + '/removeStudent/' + a.studentID   %>">❌</a>
+    </li>
   <% } %>
 </ul>
 

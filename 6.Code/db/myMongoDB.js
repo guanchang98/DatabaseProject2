@@ -1,4 +1,4 @@
-const { MongoClient, ObjectId } = require("mongodb");
+const { MongoClient, ObjectId, Int32 } = require("mongodb");
 const uri = process.env.MONGO_URL || "mongodb://localhost:27017";
 const DB_NAME = "P2ChangGuan";
 const COL_Courses = "Courses";
@@ -15,12 +15,12 @@ async function getCourses(query, page, pageSize) {
     const queryObj = {
       //"query": { $regex: `^${query}`, $options: "i" },
     };
-    console.log(queryObj);
+    //console.log(queryObj);
     return await client
       .db(DB_NAME)
       .collection(COL_Courses)
       .find(queryObj)
-      //.sort({ "courseName": 1 })
+      .sort({ "courseName": 1 })
       .limit(pageSize)
       .skip((page - 1) * pageSize)
       .toArray();
@@ -56,11 +56,12 @@ async function getCourseByID(courseID) {
     await client.connect();
 
     const queryObj = {
-      _id: new ObjectId(courseID),
+      "courseID": Int32(courseID),
+      //_id: ObjectId(courseID),
       // reference_id: +reference_id,
     };
-
-    return await client.db(DB_NAME).collection(COL_Courses).findOne(queryObj);
+    const course = await client.db(DB_NAME).collection(COL_Courses).find(queryObj).toArray();
+    return course;
   } finally {
     client.close();
   }
@@ -75,7 +76,8 @@ async function updateCourseByID(courseID, course) {
     await client.connect();
 
     const queryObj = {
-      _id: new ObjectId(CourseID),
+      "courseID": courseID
+      //_id: ObjectId(courseID),
       // reference_id: +reference_id,
     };
 
@@ -102,7 +104,7 @@ async function deleteCourseByID(courseID) {
     await client.connect();
 
     const queryObj = {
-      _id: new ObjectId(CourseID),
+      courseID: courseID,
       // reference_id: +reference_id,
     };
 
@@ -129,9 +131,9 @@ async function insertCourse(course) {
     };
 
     // If tags is a string convert it to an array
-    if (typeof course.tags === "string") {
+    /*if (typeof course.tags === "string") {
       course.tags = course.tags.split(",").map((t) => t.trim()); // removes whitespace
-    }
+    }*/
 
     return await client
       .db(DB_NAME)
@@ -146,6 +148,36 @@ async function insertCourse(course) {
 async function getStudentsByCourseID(courseID) {
   console.log("getStudentsByCourseID", courseID);
 
+  const client = new MongoClient(uri);
+
+  try {
+    await client.connect();
+
+    const pipeline =  [
+      {
+        '$lookup': {
+          'from': 'Students', 
+          'localField': 'students.sID', 
+          'foreignField': 'studentID', 
+          'as': 'Students'
+        }
+      }, {
+        '$match': {
+          'courseID': courseID
+        }
+      }, {
+        '$project': {
+          'Students': 1, 
+          '_id': 0
+        }
+      }
+    ];
+    const students = await client.db(DB_NAME).collection(COL_Courses).aggregate(pipeline).toArray();
+    console.log(students);
+    return students;
+  } finally {
+    client.close();
+  }
   
 }
 
