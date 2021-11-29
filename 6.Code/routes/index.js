@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const myDb = require("../db/mySqliteDB.js");
+const myDb = require("../db/myMongoDB.js");
 
 /* GET home page. */
 router.get("/", async function (req, res, next) {
@@ -18,9 +18,9 @@ router.get("/courses", async (req, res, next) => {
     let total = await myDb.getCoursesCount(query);
     let courses = await myDb.getCourses(query, page, pageSize);
     /*for (let course of courses) {
-      console.log("course", {
+      console.log(
         course
-      });
+      );
     }*/
     res.render("./pages/index", {
       courses,
