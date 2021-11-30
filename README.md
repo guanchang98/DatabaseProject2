@@ -20,12 +20,14 @@ Design a scheduling application for a driving school.
 	
 ## 4. Database
 
-```
-Unzip the file 4.dump.zip
-```
+### (1) Unzip the file 4.dump.zip in folder 4.Database
+
+### (2) Find the location of folder dump
+
+### (3) Run in the command line
 
 ```
-Run -- mongorestore dump
+mongorestore dump
 ```
 
 ## 5. Query
