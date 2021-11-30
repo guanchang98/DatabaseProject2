@@ -30,7 +30,15 @@ Design a scheduling application for a driving school.
 mongorestore dump
 ```
 
+### (4) You can find the database in Mongo Compass or Mongo Shell (import mongo in command line and then import show dbs or other command) in localhost:27017
+
 ## 5. Query
+
+Imput Node FileName.js to run queries in 5.Query. For example:
+
+```
+Node Query1.js
+```
 	
 ## 6. What is the project? & What was the original proposal?
 
