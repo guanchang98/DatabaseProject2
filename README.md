@@ -10,7 +10,7 @@ Design a scheduling application for a driving school.
 
 ## 2. Conceptual Model
 
-![alt text](https://github.com/Dabaiee/CS5200/blob/main/2.Conceptual%20Model%20of%20Driving%20School%20Scheduling%20System%20(2).png?raw=true)
+![alt text](https://github.com/guanchang98/DatabaseProject2/blob/main/2.ConceptualModel(MongoDB).png?raw=true)
 
 	
 ## 3. Logical Model *png
