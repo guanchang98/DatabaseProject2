@@ -1,4 +1,5 @@
 const express = require("express");
+const { Int32 } = require("mongodb");
 const router = express.Router();
 
 const myDb = require("../db/myMongoDB.js");
@@ -94,7 +95,7 @@ router.post("/courses/:courseID/addStudent", async (req, res, next) => {
     let updateResult = await myDb.addStudentIDToCourseID(courseID, studentID);
     console.log("addStudentIDToCourseID", updateResult);
 
-    if (updateResult && updateResult.changes === 1) {
+    if (updateResult && updateResult.modifiedCount === 1) {
       res.redirect(`/courses/${courseID}/edit?msg=Student added`);
     } else {
       res.redirect(`/courses/${courseID}/edit?msg=Error adding student`);
@@ -126,10 +127,15 @@ router.get("/courses/:courseID/delete", async (req, res, next) => {
 
 router.post("/createCourse", async (req, res, next) => {
   const course = req.body;
-
+  console.log(course);
+  const newCourse =  {"courseID": Int32(course.courseID), "courseName": course.courseName, 
+  "carType": course.carType, "startTime": course.startTime, "duration": course.duration, 
+  "courseInfo": null, "capacity": Int32(course.capacity), "coach": {"firstName": course.firstName, 
+"lastName": course.lastName}, "students":[]
+}
   try {
     console.log(course);
-    const insertRes = await myDb.insertCourse(course);
+    const insertRes = await myDb.insertCourse(newCourse);
 
     console.log("Inserted", insertRes);
     res.redirect("/courses/?msg=Inserted");

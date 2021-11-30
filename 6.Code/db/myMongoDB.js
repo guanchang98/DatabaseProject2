@@ -125,10 +125,11 @@ async function insertCourse(course) {
   try {
     await client.connect();
 
-    const queryObj = {
-      _id: new ObjectId(CourseID),
+    /*const queryObj = {
+      //_id: new ObjectId(CourseID),
+      course
       // reference_id: +reference_id,
-    };
+    };*/
 
     // If tags is a string convert it to an array
     /*if (typeof course.tags === "string") {
@@ -138,7 +139,7 @@ async function insertCourse(course) {
     return await client
       .db(DB_NAME)
       .collection(COL_Courses)
-      .insertOne(queryObj);
+      .insertOne(course);
   } finally {
     client.close();
   }
@@ -192,6 +193,28 @@ async function getStudentsByCourseID(courseID) {
 async function addStudentIDToCourseID(courseID, studentID) {
   console.log("addStudentIDToCourseID", courseID, studentID);
   
+  const client = new MongoClient(uri);
+
+  try {
+    await client.connect();
+
+    const queryObj =  {
+      "studentID": Int32(studentID),
+    };
+    let student = await client.db(DB_NAME).collection(COL_Students).find(queryObj).toArray();
+    student = student[0];
+    let studentAdded = {"sID": student.studentID, "firstName": student.firstName,
+  "lastName": student.lastName, "email": student.email}
+    const queryObj2 = {
+      "$addToSet": {students: studentAdded}
+    }
+    const res = await client.db(DB_NAME).collection(COL_Courses)
+    .updateOne({"courseID": Int32(courseID)}, queryObj2);
+    console.log(res);
+    return res;
+  } finally {
+    client.close();
+  }
 }
 
 
