@@ -76,20 +76,20 @@ async function updateCourseByID(courseID, course) {
     await client.connect();
 
     const queryObj = {
-      "courseID": courseID
+      "courseID": Int32(courseID)
       //_id: ObjectId(courseID),
       // reference_id: +reference_id,
     };
 
     // If tags is a string convert it to an array
-    if (typeof course.tags === "string") {
+    /*if (typeof course.tags === "string") {
       course.tags = course.tags.split(",").map((t) => t.trim()); // removes whitespace
-    }
-
+    }*/
+    var newvalues = { $set: course };
     return await client
       .db(DB_NAME)
       .collection(COL_Courses)
-      .updateOne(queryObj, { $set: course });
+      .updateOne(queryObj, newvalues);
   } finally {
     client.close();
   }
@@ -104,7 +104,7 @@ async function deleteCourseByID(courseID) {
     await client.connect();
 
     const queryObj = {
-      courseID: courseID,
+      "courseID": Int32(courseID),
       // reference_id: +reference_id,
     };
 
@@ -177,8 +177,11 @@ async function getStudentsByCourseID(courseID) {
       }
     ];
     const students = await client.db(DB_NAME).collection(COL_Courses).aggregate(pipeline).toArray();
-    console.log(typeof students);
-    return students;
+    const arr = new Array();
+    for (let s of students) {
+      arr.push(s['Students']);
+    }
+    return arr;
   } finally {
     client.close();
   }
@@ -188,7 +191,6 @@ async function getStudentsByCourseID(courseID) {
 
 async function addStudentIDToCourseID(courseID, studentID) {
   console.log("addStudentIDToCourseID", courseID, studentID);
-
   
 }
 

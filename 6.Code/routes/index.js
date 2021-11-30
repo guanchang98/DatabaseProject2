@@ -42,17 +42,9 @@ router.get("/courses/:courseID/edit", async (req, res, next) => {
 
     let course = await myDb.getCourseByID(courseID);
     let students = await myDb.getStudentsByCourseID(courseID);
-    /*
-    var student_str = "";
-    for (let s of students) {
-      let students_json = JSON.stringify(s);
-      console.log(students_json.substring(12, students_json.length - 1));
-      student_str += students_json.substring(12, students_json.length - 1);
-      console.log(student_str);
-    }
-    students = JSON.parse(student_str);
-    */
     
+    course = course[0];
+    //console.log(Array.isArray(course));
     console.log("edit course", {
       course,
       students,
@@ -71,15 +63,17 @@ router.get("/courses/:courseID/edit", async (req, res, next) => {
 });
 
 router.post("/courses/:courseID/edit", async (req, res, next) => {
+  //console.log("here" + " " + req.body);
   const courseID = req.params.courseID;
   const course = req.body;
+  
 
   try {
 
     let updateResult = await myDb.updateCourseByID(courseID, course);
     console.log("update", updateResult);
 
-    if (updateResult && updateResult.changes === 1) {
+    if (updateResult && updateResult.modifiedCount === 1) {
       res.redirect("/courses/?msg=Updated");
     } else {
       res.redirect("/courses/?msg=Error Updating");
@@ -119,7 +113,7 @@ router.get("/courses/:courseID/delete", async (req, res, next) => {
     let deleteResult = await myDb.deleteCourseByID(courseID);
     console.log("delete", deleteResult);
 
-    if (deleteResult && deleteResult.changes === 1) {
+    if (deleteResult && deleteResult.deletedCount === 1) {
       res.redirect("/courses/?msg=Deleted");
     } else {
       res.redirect("/courses/?msg=Error Deleting");

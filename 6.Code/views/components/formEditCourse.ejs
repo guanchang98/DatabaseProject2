@@ -37,21 +37,35 @@
         value="<%= course.startTime %>"
       />
     </label>
-    <!--<label class="form-label">-->
-      <!--Duration:-->
-      <!--<input-->
-        <!--class="form-control"-->
-        <!--type="text"-->
-        <!--name="startTime"-->
-        <!--value="<%= course.duration %>"-->
-      <!--/>-->
-    <!--</label>-->
+   <label class="form-label">
+      Duration:
+      <input
+        class="form-control"
+        type="text"
+        name="duration"
+        value="<%= course.duration %>"
+      />
+    </label> 
   </div>
 
+  <div>
+    <label class="form-label">
+      Capacity:
+      <input
+        class="form-control"
+        type="text"
+        name="capacity"
+        value="<%= course.capacity %>"
+      />
+    </label>
+   
+  </div>
+
+
   <button type="submit" class="btn btn-primary">Edit</button>
-  <a
+  <!--<a
     class="btn btn-danger"
     hcourse="<%= '/courses/' + course.courseID + '/delete' %>"
     >Delete</a
-  >
+  >-->
 </form>
