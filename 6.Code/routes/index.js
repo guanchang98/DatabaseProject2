@@ -159,19 +159,7 @@ router.post("/createStudent", async (req, res, next) => {
   }
 });
 
-// router.get("/coaches/:coachID", async (req, res, next) => {
-//   const coachID = req.params.coachID;
-//
-//   try {
-//
-//     let coach = await myDb.getCoachByID(coachID);
-//     console.log("coach", coach);
-//
-//
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+
 
 router.get("/schedule", async (req, res, next) => {
   const query = req.query.q || "";
@@ -226,6 +214,27 @@ router.get("/courses/:courseID/schedule", async (req, res, next) => {
     next(err);
   }
 });
+
+router.get("/courses/:courseID/removeStudent/:studentID", async (req, res, next) => {
+  const courseID = req.params.courseID;
+  const studentID = req.params.studentID;
+
+  try {
+
+    let deleteResult = await myDb.deleteStudentIDFromCourseID(courseID, studentID);
+    console.log("delete", deleteResult);
+
+    if (deleteResult && deleteResult.modifiedCount === 1) {
+      res.redirect("/courses/?msg=Deleted");
+    } else {
+      res.redirect("/courses/?msg=Error Deleting");
+    }
+
+  } catch (err) {
+    next(err);
+  }
+});
+
 //
 // router.post("/courses/:courseID/schedule", async (req, res, next) => {
 //   const courseID = req.params.courseID;

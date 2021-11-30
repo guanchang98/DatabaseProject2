@@ -248,6 +248,26 @@ async function insertStudent(student) {
   }
 }
 
+async function deleteStudentIDFromCourseID(courseID, studentID) {
+  console.log("deleteStudentIDFromCourseID", courseID, studentID);
+  
+  const client = new MongoClient(uri);
+
+  try {
+    await client.connect();
+    const res = await client.db(DB_NAME).collection(COL_Courses)
+    .updateOne({ 'courseID': Int32(courseID) }, 
+    { $pull: { students: { sID: Int32(studentID) } } },
+    false,
+    true,);
+    console.log(res);
+    return res;
+  } finally {
+    client.close();
+  }
+}
+
+
 
 module.exports.getCourses = getCourses;
 module.exports.getCoursesCount = getCoursesCount;
@@ -258,3 +278,4 @@ module.exports.deleteCourseByID = deleteCourseByID;
 module.exports.getStudentsByCourseID = getStudentsByCourseID;
 module.exports.addStudentIDToCourseID = addStudentIDToCourseID;
 module.exports.insertStudent = insertStudent;
+module.exports.deleteStudentIDFromCourseID = deleteStudentIDFromCourseID;
