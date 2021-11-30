@@ -85,7 +85,7 @@ async function updateCourseByID(courseID, course) {
     /*if (typeof course.tags === "string") {
       course.tags = course.tags.split(",").map((t) => t.trim()); // removes whitespace
     }*/
-    var newvalues = { $set: course };
+    let newvalues = { $set: course };
     return await client
       .db(DB_NAME)
       .collection(COL_Courses)
