@@ -4,13 +4,13 @@
 
         <div class="col-4">
             <div class="card p-1">
-                <h5 class="card-title"><%= course.courseName %></h5>
+                <h5 class="card-title">Course Name: <%= course.courseName %></h5>
                 <div class="card-text">
                     <div>Car Type:<%= course.carType %></div>
                     <div>Start Time:<%= course.startTime %></div>
                     <div>Duration:<%= course.duration %> </div>
                     <div>Capacity:<%= course.capacity %></div>
-                    <div>Coach ID:<%= course.coachID %></div>
+                    <div>Coach:<%= course.coach.firstName + " " + course.coach.lastName %></div>
 
                     <div>
                         <a class="btn btn-outline-primary" href="<%= '/courses/' + course.courseID + '/schedule' %>">Schedule</a>

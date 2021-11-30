@@ -42,8 +42,17 @@ router.get("/courses/:courseID/edit", async (req, res, next) => {
 
     let course = await myDb.getCourseByID(courseID);
     let students = await myDb.getStudentsByCourseID(courseID);
-
-    //console.log(course + " " + students);
+    /*
+    var student_str = "";
+    for (let s of students) {
+      let students_json = JSON.stringify(s);
+      console.log(students_json.substring(12, students_json.length - 1));
+      student_str += students_json.substring(12, students_json.length - 1);
+      console.log(student_str);
+    }
+    students = JSON.parse(student_str);
+    */
+    
     console.log("edit course", {
       course,
       students,

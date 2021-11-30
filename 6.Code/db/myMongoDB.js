@@ -163,17 +163,21 @@ async function getStudentsByCourseID(courseID) {
         }
       }, {
         '$match': {
-          'courseID': courseID
+          'courseID': Int32(courseID)
         }
       }, {
         '$project': {
           'Students': 1, 
           '_id': 0
         }
+      }, {
+        '$unwind': {
+          'path': '$Students'
+        }
       }
     ];
     const students = await client.db(DB_NAME).collection(COL_Courses).aggregate(pipeline).toArray();
-    console.log(students);
+    console.log(typeof students);
     return students;
   } finally {
     client.close();
