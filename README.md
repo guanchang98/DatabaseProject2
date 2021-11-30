@@ -20,6 +20,14 @@ Design a scheduling application for a driving school.
 	
 ## 4. Database
 
+```
+Unzip the file 4.dump.zip
+```
+
+```
+Run -- mongorestore dump
+```
+
 ## 5. Query
 	
 ## 6. What is the project? & What was the original proposal?
@@ -29,7 +37,7 @@ The project is to implement a web application for a driving school scheduling sy
 ## 7. Contribution
 
 
-Chang Guan completed the Project2 Independantly.
+Chang Guan completed the Project2 independantly.
 
 	
 
