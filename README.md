@@ -13,13 +13,14 @@ Design a scheduling application for a driving school.
 ![alt text](https://github.com/guanchang98/DatabaseProject2/blob/main/2.ConceptualModel(MongoDB).png?raw=true)
 
 	
-## 3. Logical Model *png
+## 3. Logical Model
 
 ![alt text](https://github.com/guanchang98/DatabaseProject2/blob/main/3.LogicalModel/3.LogicalModel(MongoDB).png?raw=true)
 
 	
-## 4. database
-## 5. query
+## 4. Database
+
+## 5. Query
 	
 ## 6. What is the project? & What was the original proposal?
 
