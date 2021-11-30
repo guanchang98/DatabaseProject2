@@ -3,7 +3,7 @@
 # DrivingSchoolSchedulingSystem
 An Application Using Node + Express + MongoDB + EJS implementing a Driving School Scheduling System for both students and managers.
 
-1. Requirements
+## 1. Requirements
 
 Design a scheduling application for a driving school. 
 
