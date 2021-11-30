@@ -217,6 +217,36 @@ async function addStudentIDToCourseID(courseID, studentID) {
   }
 }
 
+async function insertStudent(student) {
+  console.log("insertStudent");
+
+  const client = new MongoClient(uri);
+
+  try {
+    await client.connect();
+
+    /*const queryObj = {
+      //_id: new ObjectId(CourseID),
+      course
+      // reference_id: +reference_id,
+    };*/
+
+    // If tags is a string convert it to an array
+    /*if (typeof course.tags === "string") {
+      course.tags = course.tags.split(",").map((t) => t.trim()); // removes whitespace
+    }*/
+    let studentAdded = {"studentID": Int32(student.studentID), "firstName": student.firstName,
+    "lastName": student.lastName, "gender": student.gender, "phoneNumber": student.phoneNumber,
+    "email": student.email, "address": student.address
+    };
+    return await client
+      .db(DB_NAME)
+      .collection(COL_Students)
+      .insertOne(studentAdded);
+  } finally {
+    client.close();
+  }
+}
 
 
 module.exports.getCourses = getCourses;
@@ -227,3 +257,4 @@ module.exports.updateCourseByID = updateCourseByID;
 module.exports.deleteCourseByID = deleteCourseByID;
 module.exports.getStudentsByCourseID = getStudentsByCourseID;
 module.exports.addStudentIDToCourseID = addStudentIDToCourseID;
+module.exports.insertStudent = insertStudent;
