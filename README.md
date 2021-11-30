@@ -15,7 +15,7 @@ Design a scheduling application for a driving school.
 	
 ## 3. Logical Model *png
 
-![alt text](https://github.com/guanchang98/DatabaseProject1/blob/main/3.Logical%20model%20of%20Driving%20School%20Scheduling%20System.png?raw=true)
+![alt text](https://github.com/guanchang98/DatabaseProject2/blob/main/3.LogicalModel/3.LogicalModel(MongoDB).png?raw=true)
 
 	
 ## 4. database
